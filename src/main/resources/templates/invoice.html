@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Hóa đơn chi tiết</h1>
+        Ngày nhập: <label th:text=${session.invoice.dateImport}></label></br></br>
+        Tên nhà cung cấp: <label th:text=${session.invoice.supplier.name}></label></br></br>
+        Địa chỉ: <label th:text=${session.invoice.supplier.address}></label></br></br>
+        Số điện thoại: <label th:text=${session.invoice.supplier.phone}></label></br></br>
+        <table border="1">
+            <tr>
+                <th>Tên nguyên liệu</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Ghi chú</th>
+            </tr>
+                <tr th:each="o:${session.invoice.listDetailInvoice}">
+                    <td th:text=${o.ingredient.name}></td>
+                    <td th:text=${o.unitPrice}></td>
+                    <td th:text=${o.quantity}></td>
+                    <td th:text=${o.totalMoney}></td>
+                    <td></td>
+                </tr>
+        </table>
+        </br>
+        Tổng tiền: <label th:text=${session.invoice.totalMoney}></label>
+        </br></br>
+        Tổng số lượng: <label th:text=${session.invoice.totalQuantity}></label>
+        </br></br>
+        <button type="button"><a th:href="@{'/importInvoice/getListStat?idSup='+${session.invoice.supplier.id}}">Quay lại</a></button>
+    </body>
+</html>

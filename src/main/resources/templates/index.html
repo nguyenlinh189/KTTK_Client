@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    <form th:action="@{/demo/post}" method="get" id="form1">
+        <div th:each="i:${session.map}">
+        	<input name="demos" type="checkbox" th:value="${i.key}" onclick="checkchon()" th:checked="${i.value}" >
+        	<span th:text="${i.key}"></span>
+        </div>
+        <button type="submit">Gui</button>
+    </form>
+    <script type="text/javascript">
+    	function checkchon(){
+    		alert("ok");
+    		document.getElementById('form1').submit();
+    	}
+    </script>
+    </body>
+</html>

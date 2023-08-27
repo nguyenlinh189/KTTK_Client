@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TODO supply a title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h2>Thêm mới nhà cung cấp</h2>
+	<form th:action='@{/supplier/addSupplier}' method="post"
+		th:object="${supplier}">
+		<table boder="0">
+			<tr>
+				<td>Tên:</td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td>Địa chỉ:</td>
+				<td><input type="text" th:field="*{address}" /></td>
+			</tr>
+			<tr>
+				<td>Số điện thoại:</td>
+				<td><input type="text" th:field="*{phone}" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" th:field="*{email}" /></td>
+			</tr>
+			<tr>
+				<td>Mô tả:</td>
+				<td><input type="text" th:field="*{description}" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Thêm" /></td>
+			</tr>
+		</table>
+	</form>
+	<div th:if=${result=='success'}>
+		<script type="text/javascript">
+			alert("Thêm thông tin thành công");
+			window.location.href = "http://localhost:8080/";
+		</script>
+	</div>
+	<div th:if=${result=='fail'}>
+		<script type="text/javascript">
+			alert("Thêm thông tin không thành công");
+			window.location.href = "http://localhost:8080/";
+		</script>
+	</div>
+</body>
+</html>

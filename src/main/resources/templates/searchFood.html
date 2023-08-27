@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       	<h2>Tìm món ăn</h2>
+       	<form th:action="@{/food/search}" method="post">
+            <table border="0">
+                <tr>
+                    <td>Tên món ăn: </td>
+                    <td><input type="text" name="key"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Tìm"/></td>
+                </tr>
+            </table>
+        </form>
+        </br>
+        <form th:action="@{/bill/addUsedFood}" method="get">
+        <table border="1">
+            <tr>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+            </tr>
+                <tr th:each="o:${session.listFood}">
+                    <td th:text="${o.name}"></td>
+                    <td th:text="${o.price}"></td>
+                    <td th:text="${o.description}"></td>
+                    <td><input type="radio" name="chon" th:value="${o.id}" /></td>
+                </tr>
+        </table>
+        </br>
+        Số lượng: <input type="text" name="quantity"></br></br>
+        <input type="submit" value="Thêm vào hóa đơn"> 
+        </form>
+        <div th:if=${result=='notfound'}>
+			<script type="text/javascript">
+				alert("Không tìm thấy món ăn");
+				window.location.href = "http://localhost:8080/food/search";
+			</script>
+		</div>
+    </body>
+</html>

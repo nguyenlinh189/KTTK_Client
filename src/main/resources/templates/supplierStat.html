@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Thống kê nhà cung cấp theo doanh thu</h2>
+        <form th:action="@{/stat}" method="post">
+            <table border="0">
+                <tr>
+                    <td>Ngày bắt đầu: </td>
+                    <td><input type="date" name="dateStart"/></td>
+                </tr>
+                <tr>
+                    <td>Ngày kết thúc: </td>
+                    <td><input type="date" name="dateEnd"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Xem"/></td>
+                </tr>
+            </table> 
+        </form>
+        <table border="1">
+            <tr>
+                <th>Tên</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Tổng số lượng nhập hàng</th>
+                <th>Tổng tiền</th>
+            </tr>
+                <tr th:each="o:${session.listStat}">
+                    <td th:text=${o.name}></td>
+                    <td th:text=${o.address}></td>
+                    <td th:text=${o.phone}></td>
+                    <td th:text=${o.totalQuantity}></td>
+                    <td th:text=${o.totalMoney}></td>
+                    <td><button type="button"><a th:href="@{'/importInvoice/getListStat?idSup='+${o.id}}">Danh sách các lần nhập</a></button></td>
+                </tr>
+            </c:forEach>
+        </table>
+        </br>
+        <button type="button"><a href="http://localhost:8080/">Quay lại</a></button>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    	<h1>Danh sách các lần nhập</h1>
+        <table border="1">
+            <tr>
+                <th>Mã hóa đơn</th>
+                <th>Ngày nhập</th>
+                <th>Tổng số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Ghi chú</th>
+            </tr>
+                <tr th:each="o:${session.listInvoice}">
+                <td th:text=${o.id}></td>
+                <td th:text=${o.dateImport}></td>
+                <td th:text=${o.totalQuantity}></td>
+                <td th:text=${o.totalMoney}></td>
+                <td><button type="button"><a th:href="@{'/importInvoice/getInvoice?id='+${o.id}}">Xem chi tiết hóa đơn</a></button></td>
+                </tr>
+        </table>
+        </br>
+        <button type="button"><a th:href="@{/stat}">Quay lại</a></button>
+    </body>
+</html>

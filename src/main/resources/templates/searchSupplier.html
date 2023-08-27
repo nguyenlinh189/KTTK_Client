@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Tìm nhà cung cấp</h2>
+        <div th:if=${result=='success'}>
+			<script type="text/javascript">
+				alert("Xóa thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+		
+        <form th:action="@{/supplier/searchSupplier}" method="post">
+            <table border="0">
+                <tr>
+                    <td>Tên nhà cung cấp: </td>
+                    <td><input type="text" name="key"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Tìm"/></td>
+                    <td><button type="button"><a th:href="@{/supplier/addSupplier}">Thêm mới</a></button></td>
+                </tr>
+            </table>
+        </form>
+        </br>
+        
+        <table border="1">
+            <tr>
+                <th>Tên</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Email</th>
+                <th>Mô tả</th>
+                <th th:if=${session.action=="nhaphang"}>Chọn</th>
+                <th th:if=${session.action=="quanli"}>Sửa</th>
+                <th th:if=${session.action=="quanli"}>Xóa</th>
+            </tr>
+                <tr th:each="o:${session.listSupplier}">
+                	<td th:text="${o.id}"></td>
+                    <td th:text="${o.name}"></td>
+                    <td th:text="${o.address}"></td>
+                    <td th:text="${o.phone}"></td>
+                    <td th:text="${o.email}"></td>
+                    <td th:text="${o.description}"></td>
+                    <td th:if=${session.action=="nhaphang"}><a th:href="@{'/importInvoice?idncc='+${o.id}}">Chọn</a></td>
+                    <td th:if=${session.action=="quanli"}><a th:href="@{'/supplier/editSupplier?idncc='+${o.id}}">Sửa</a></td>
+                    <td th:if=${session.action=="quanli"}><a th:href="@{'/supplier/deleteSupplier?idncc='+${o.id}}">Xóa</a></td>
+                </tr>
+        </table>
+        </br>
+        <button type="button"><a href="http://localhost:8080">Quay lại</a></button>
+    </body>
+</html>

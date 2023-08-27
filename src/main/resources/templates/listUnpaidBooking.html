@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    	<h2>Danh sách bàn chưa thanh toán</h2>
+    	<form th:action="@{/booked/searchBookedTableByName}" method="post">
+            <table border="0">
+                <tr>
+                    <td>Tên bàn: </td>
+                    <td><input type="text" name="key"/></td>
+                </tr>
+                <tr>
+                	<td></td>
+                    <td><input type="submit" value="Tìm"/></td>
+                </tr>
+            </table>
+        </form>
+        </br>
+        <table border="1">
+            <tr>
+                <th>Mã bàn</th>
+                <th>Tên khách hàng</th>
+                <th>Thời gian checkin</th>
+                <th>Thanh toán</th>
+            </tr>
+                <tr th:each="o:${session.listUnpaid}">
+                	<td th:text="${o.furniture.name}"></td>
+                    <td th:text="${o.customer.name}"></td>
+                    <td th:text="${o.checkIn}"></td>
+                    <td><a th:href="@{'/bill?id='+${o.id}}">Thanh toán</a></td>
+                </tr>
+        </table>
+    </body>
+</html>

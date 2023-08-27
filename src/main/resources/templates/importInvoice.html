@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TODO supply a title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h2>Hóa đơn nhập</h2>
+	Tên nhà cung cấp:
+	<label th:text=${session.invoice.supplier.name}></label>
+	</br>
+	</br>
+	<form th:action="@{/ingredient/search}" method="post">
+		Ngày nhập:<label th:text=${session.invoice.dateImport}></label>
+		</br></br>
+		<label>Tên nguyên liệu: </label> <input type="text" name="key" />
+		<input type="submit" value="Tìm nguyên liệu" />
+		<button type="button">
+			<a th:href="@{/ingredient/add}">Thêm nguyên liệu mới</a>
+		</button>
+	</form>
+	</br>
+	<form th:action="@{/importInvoice/addDetail}" method="get">
+		<table border="1">
+			<tr>
+				<th>Tên</th>
+				<th>Mô tả</th>
+				<th>Chọn</th>
+			</tr>
+			<tr th:each="o:${session.listIngre}">
+				<td th:text=${o.name}></td>
+				<td th:text=${o.description}></td>
+				<td><input type="radio" name="chon" th:value="${o.id}" /></td>
+			</tr>
+		</table>
+		</br>
+		<label>Số lượng: </label> <input type="text" name="quantity" required="" /> 
+		<label>Đơn giá: </label> <input type="text" name="unitPrice" required="" />
+		</br></br>
+		<input type="submit" value="Thêm nguyên liệu vào hóa đơn" />
+	</form>
+	</br>
+	<form>
+		<table border="1">
+			<tr>
+				<th>Tên nguyên liệu</th>
+				<th>Đơn giá</th>
+				<th>Số lượng</th>
+				<th>Thành tiền</th>
+			</tr>
+			<tr th:each="o:${session.invoice.listDetailInvoice}">
+				<td th:text=${o.ingredient.name}></td>
+				<td th:text=${o.unitPrice}></td>
+				<td th:text=${o.quantity}></td>
+				<td th:text=${o.totalMoney}></td>
+			</tr>
+		</table>
+		</br> Tổng tiền: <label th:text=${session.invoice.totalMoney}></label> </br>
+		</br> Tổng số lượng: <label th:text=${session.invoice.totalQuantity}></label></br>
+		</br> 
+		<button type="button">
+			<a th:href="@{/importInvoice/save}">Xác nhận</a>
+		</button>
+	</form>
+	<div th:if=${result=='success'}>
+			<script type="text/javascript">
+				alert("Nhập hàng thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+	</div>
+		<div th:if=${result=='fail'}>
+			<script type="text/javascript">
+				alert("Nhập hàng không thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+</body>
+</html>

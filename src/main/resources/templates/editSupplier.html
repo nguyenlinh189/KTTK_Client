@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TODO supply a title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<form th:action="@{/supplier/editSupplier}" method="post"
+		th:object="${supplier}">
+		<table boder="1">
+			<tr>
+				<td>Id:</td>
+				<td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+			</tr>
+			<tr>
+				<td>Tên:</td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td>Địa chỉ:</td>
+				<td><input type="text" th:field="*{address}" /></td>
+			</tr>
+			<tr>
+				<td>Số điện thoại:</td>
+				<td><input type="text" th:field="*{phone}" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" th:field="*{email}" /></td>
+			</tr>
+			<tr>
+				<td>Mô tả:</td>
+				<td><input type="text" th:field="*{description}" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Cập nhật" /></td>
+			</tr>
+		</table>
+		<div th:if=${result=='success'}>
+			<script type="text/javascript">
+				alert("Cập nhập thông tin thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+		<div th:if=${result=='fail'}>
+			<script type="text/javascript">
+				alert("Cập nhâp thông tin không thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+	</form>
+</body>
+</html>

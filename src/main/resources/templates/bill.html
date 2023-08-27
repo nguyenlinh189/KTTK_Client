@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <h2>Hóa đơn</h2>
+        Tên khách hàng: <label th:text="${session.bill.bookedTable.customer.name}"></label></br></br>
+        Tên nhân viên: <label th:text="${session.bill.staff.name}"></label></br></br>
+        Mã bàn: <label th:text="${session.bill.bookedTable.furniture.name}"></label></br></br>
+        Thời gian lập hóa đơn: <label th:text="${session.bill.paymentDate}"></label></br></br>
+        Danh sách các món đã gọi:</br></br>
+        <table border="1">
+            <tr>
+                <th>Tên món ăn</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Cập nhật</th>
+                <th>Xóa</th>
+            </tr>
+                <tr th:each="o:${session.bill.bookedTable.listUsedFood}">
+                	<td th:text="${o.food.name}"></td>
+                	<td th:text="${o.price}"></td>
+                    <td th:text="${o.food.description}"></td>
+                    <form th:action="@{/bill/updateUsedFood}" method="get">
+                    	<input type="hidden" name="usedFoodId" th:value=${o.id}>  
+	                    <td><input min="1" name="quantity" th:value="${o.quantity}" max="100" value="1"
+										type="number"></td>
+						<td th:text="${o.totalMoney}"></td>
+						<td><button type="submit"><i class="fa fa-refresh"></i></button></td>
+                    </form>
+                    <td><a th:href="@{'/bill/deleteUsedFood?usedFoodId='+${o.id}}"><i
+											class="fa fa-trash-o"></i></a></td>
+                </tr>
+        </table>
+        </br>
+        <form th:action="@{/bill/save}" method="get">
+        Chọn phương thanh toán: 
+        <select name="typepayment" id="short" class="select_option">
+              <option value="Thanh toán bằng tiền mặt" checked>Thanh toán bằng tiền mặt</option>
+              <option value="Thanh toán bằng thẻ"}>Thanh toán bằng thẻ</option>
+        </select>
+        </br></br>
+        Tổng số lượng món ăn: <label th:text="${session.bill.bookedTable.totalQuantity}"></label></br></br>
+        Tạm tính:<label th:text="${session.bill.bookedTable.totalMoney}"></label></br></br>
+       	Tổng tiền:<label th:text="${session.bill.totalMoney}"></label></br></br>
+       	<button type="button"><a th:href="@{/food/search}">Thêm món ăn mới</a></button>
+       	<input type="submit" value="Lưu">
+       	</form>
+       	<div th:if=${result=='success'}>
+			<script type="text/javascript">
+				alert("Thanh toán thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+		<div th:if=${result=='fail'}>
+			<script type="text/javascript">
+				alert("Thanh toán không thành công");
+				window.location.href = "http://localhost:8080/";
+			</script>
+		</div>
+    </body>
+</html>
